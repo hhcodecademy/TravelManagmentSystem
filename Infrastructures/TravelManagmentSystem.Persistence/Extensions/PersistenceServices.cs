@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelManagmentSystem.Application.Contracts.Repository;
 using TravelManagmentSystem.Application.Contracts.UnitOfWorks;
+using TravelManagmentSystem.Domain.Entities;
 using TravelManagmentSystem.Persistence.Context;
 using TravelManagmentSystem.Persistence.Repository;
 using TravelManagmentSystem.Persistence.UnitOfWorks;
@@ -22,8 +19,10 @@ namespace TravelManagmentSystem.Persistence.Extensions
             {
                 opts.UseSqlServer(configuration.GetConnectionString("SQLConnectionString"));
             });
+          
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
